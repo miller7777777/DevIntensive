@@ -80,6 +80,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mFab.setOnClickListener(this);
         setupToolbar();
         setupDrawer();
+        loadUserInfoValue();
+
+        List<String> test = mDataManager.getPreferencesManager().loadUserProfileData();
 
 
 
@@ -122,6 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "OnPause");
+//        saveUserInfoValue();
 
     }
 
@@ -214,6 +218,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 userValue.setEnabled(false);
                 userValue.setFocusable(false);
                 userValue.setFocusableInTouchMode(false);
+                saveUserInfoValue();
+
 
             }
         }
