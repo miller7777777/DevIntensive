@@ -80,13 +80,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setupToolbar();
         setupDrawer();
 
+
+
         if (savedInstanceState == null){
             // активити запускается впервые
 
 
         }else {
             // активити уже создавалось
-
+            mCurrentEditMode = savedInstanceState.getInt(ConstantManager.EDIT_MODE_KEY, 0);
+            changeEditMode(mCurrentEditMode);
 
         }
 
@@ -148,7 +151,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         switch (v.getId()){
             case R.id.fab:
-                showSnackbar("click");
                 if (mCurrentEditMode == 0){
                     changeEditMode(1);
                     mCurrentEditMode = 1;
@@ -165,6 +167,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt(ConstantManager.EDIT_MODE_KEY, mCurrentEditMode);
     }
 
     private void showSnackbar(String message){
@@ -197,12 +200,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void changeEditMode(int mode){
 
         if (mode == 1){
+            mFab.setImageResource(R.drawable.ic_done_black_24dp);
             for (EditText  userValue: mUserInfo) {
                 userValue.setEnabled(true);
                 userValue.setFocusable(true);
                 userValue.setFocusableInTouchMode(true);
             }
         }else{
+            mFab.setImageResource(R.drawable.ic_create_black_24dp);
+
             for (EditText  userValue: mUserInfo) {
                 userValue.setEnabled(false);
                 userValue.setFocusable(false);
