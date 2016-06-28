@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout mNavigationDrawer;
     private FloatingActionButton mFab;
     private EditText mUserPhone, mUserMail, mUserVk, mUserGit, mUserBio;
-    private List<View> mUserInfo;
+    private List<EditText> mUserInfo;
 
 
     /**
@@ -149,8 +149,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.fab:
                 showSnackbar("click");
-//                showProgress();
-//                runWithDelay();
+                if (mCurrentEditMode == 0){
+                    changeEditMode(1);
+                    mCurrentEditMode = 1;
+                }else{
+                    changeEditMode(0);
+                    mCurrentEditMode = 0;
+                }
+
                 break;
         }
 
@@ -189,6 +195,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      *  @param mode если 1 - режим редактирования, если 0 - режим просмотра
      */
     private void changeEditMode(int mode){
+
+        if (mode == 1){
+            for (EditText  userValue: mUserInfo) {
+                userValue.setEnabled(true);
+                userValue.setFocusable(true);
+                userValue.setFocusableInTouchMode(true);
+            }
+        }else{
+            for (EditText  userValue: mUserInfo) {
+                userValue.setEnabled(false);
+                userValue.setFocusable(false);
+                userValue.setFocusableInTouchMode(false);
+
+            }
+        }
 
     }
 

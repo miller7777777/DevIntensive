@@ -402,7 +402,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/bio_et"
+                    android:id="@+id/bio_et_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_small_8"
@@ -432,7 +432,7 @@
                             >
 
                             <EditText
-                                android:id="@+id/personal_info_et_et"
+                                android:id="@+id/bio_et"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:enabled="false"
