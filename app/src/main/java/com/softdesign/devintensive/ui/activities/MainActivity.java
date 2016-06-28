@@ -1,7 +1,5 @@
 package com.softdesign.devintensive.ui.activities;
 
-import android.graphics.Color;
-import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,17 +7,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.softdesign.devintensive.R;
+import com.softdesign.devintensive.data.managers.DataManager;
 import com.softdesign.devintensive.utils.ConstantManager;
 
 import java.util.ArrayList;
@@ -28,6 +25,8 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = ConstantManager.TAG_PREFIX + "Main Activity";
+
+    private DataManager mDataManager;
     private int mCurrentEditMode;
     private ImageView mCallImg;
     private CoordinatorLayout mCoordinatorLayout;
@@ -35,7 +34,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout mNavigationDrawer;
     private FloatingActionButton mFab;
     private EditText mUserPhone, mUserMail, mUserVk, mUserGit, mUserBio;
-    private List<EditText> mUserInfo;
+    private List<EditText> mUserInfoViews;
 
 
     /**
@@ -57,6 +56,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "OnCreate");
 
+        mDataManager = DataManager.getInstance();
+
         mCallImg = (ImageView) findViewById(R.id.call_img);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_container);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,12 +70,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserGit = (EditText) findViewById(R.id.github_et);
         mUserBio = (EditText) findViewById(R.id.bio_et);
 
-        mUserInfo = new ArrayList<>();
-        mUserInfo.add(mUserPhone);
-        mUserInfo.add(mUserMail);
-        mUserInfo.add(mUserVk);
-        mUserInfo.add(mUserGit);
-        mUserInfo.add(mUserBio);
+        mUserInfoViews = new ArrayList<>();
+        mUserInfoViews.add(mUserPhone);
+        mUserInfoViews.add(mUserMail);
+        mUserInfoViews.add(mUserVk);
+        mUserInfoViews.add(mUserGit);
+        mUserInfoViews.add(mUserBio);
 
         mFab.setOnClickListener(this);
         setupToolbar();
@@ -201,7 +202,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         if (mode == 1){
             mFab.setImageResource(R.drawable.ic_done_black_24dp);
-            for (EditText  userValue: mUserInfo) {
+            for (EditText  userValue: mUserInfoViews) {
                 userValue.setEnabled(true);
                 userValue.setFocusable(true);
                 userValue.setFocusableInTouchMode(true);
@@ -209,7 +210,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }else{
             mFab.setImageResource(R.drawable.ic_create_black_24dp);
 
-            for (EditText  userValue: mUserInfo) {
+            for (EditText  userValue: mUserInfoViews) {
                 userValue.setEnabled(false);
                 userValue.setFocusable(false);
                 userValue.setFocusableInTouchMode(false);
@@ -221,9 +222,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void loadUserInfoValue(){
 
+        List<String> userData = mDataManager.getPreferencesManager().loadUserProfileData();
+
+        for (int i = 0; i < userData.size(); i++) {
+            mUserInfoViews.get(i).setText(userData.get(i));
+        }
+
     }
 
     private void saveUserInfoValue(){
+
+        List<String> userData = new ArrayList<>();
+        for (EditText userFieldView : mUserInfoViews) {
+            userData.add(userFieldView.getText().toString());
+        }
+
+        mDataManager.getPreferencesManager().saveUserProfileData(userData);
 
     }
 }
