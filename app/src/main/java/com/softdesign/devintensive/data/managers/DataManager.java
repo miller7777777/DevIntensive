@@ -8,7 +8,7 @@ public class DataManager {
     private PreferencesManager mPreferencesManager;
 
     public DataManager() {
-        mPreferencesManager = new PreferencesManager();
+        this.mPreferencesManager = new PreferencesManager();
     }
 
     public static DataManager getInstance(){
