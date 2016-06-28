@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.softdesign.devintensive.utils.ConstantManager;
 import com.softdesign.devintensive.utils.DevintensiveApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PreferencesManager {
@@ -28,5 +29,16 @@ public class PreferencesManager {
         }
 
         editor.apply();
+    }
+
+    public List<String> loadUserProfileData(){
+        List<String> userFields = new ArrayList<>();
+        userFields.add(mSharedPreferences.getString(ConstantManager.USER_PHONE_KEY, "null"));
+        userFields.add(mSharedPreferences.getString(ConstantManager.USER_MAIL_KEY, "null"));
+        userFields.add(mSharedPreferences.getString(ConstantManager.USER_VK_KEY, "null"));
+        userFields.add(mSharedPreferences.getString(ConstantManager.USER_GIT_KEY, "null"));
+        userFields.add(mSharedPreferences.getString(ConstantManager.USER_BIO_KEY, "null"));
+
+        return userFields;
     }
 }
