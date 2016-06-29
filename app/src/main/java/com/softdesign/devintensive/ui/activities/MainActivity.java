@@ -77,13 +77,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserInfoViews.add(mUserVk);
         mUserInfoViews.add(mUserGit);
         mUserInfoViews.add(mUserBio);
-
         mFab.setOnClickListener(this);
         setupToolbar();
         setupDrawer();
         loadUserInfoValue();
 
-        List<String> test = mDataManager.getPreferencesManager().loadUserProfileData();
 
 
 
