@@ -46,9 +46,11 @@
                 android:theme="@style/AppTheme.PopupOverlay"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-
-                app:theme="@style/AppTheme.PopupOverlay"
                 android:background="?attr/colorPrimary"
+
+
+
+
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:layout_collapseMode="pin"
                 android:titleTextColor="@color/white"
@@ -74,6 +76,7 @@
                           android:paddingLeft="0dp"
                           android:paddingRight="0dp"
                           android:paddingTop="0dp"
+                          android:elevation="2dp"
                           tools:context=".ui.activities.MainActivity">
 
                 <!--Здесь начинаем рисовать layout с полями для рейтинга и пр.-->

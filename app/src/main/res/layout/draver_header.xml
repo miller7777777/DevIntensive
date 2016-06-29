@@ -13,6 +13,7 @@
         android:layout_height="60dp"
         android:background="@color/color_accent"
         android:layout_marginTop="@dimen/spacing_normal_16"
+        android:src="@drawable/bateau"
         />
 
     <LinearLayout

@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserGit = (EditText) findViewById(R.id.github_et);
         mUserBio = (EditText) findViewById(R.id.bio_et);
 
+
         mUserInfoViews = new ArrayList<>();
         mUserInfoViews.add(mUserPhone);
         mUserInfoViews.add(mUserMail);
@@ -244,6 +245,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         mDataManager.getPreferencesManager().saveUserProfileData(userData);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+
+
+        if (mNavigationDrawer.isDrawerOpen(GravityCompat.START)){
+            mNavigationDrawer.closeDrawer(GravityCompat.START);
+
+        }else {
+            super.onBackPressed();
+        }
 
     }
 }
