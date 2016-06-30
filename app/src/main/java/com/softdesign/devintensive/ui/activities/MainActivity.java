@@ -1,5 +1,6 @@
 package com.softdesign.devintensive.ui.activities;
 
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -111,6 +112,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 return false;
             }
         });
+    }
+
+    /*
+     * Получение результата из другой Activity (фото из камеры или галлереи)
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -257,6 +270,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }else {
             super.onBackPressed();
         }
+
+    }
+
+    private void loadPhotoFromGallery(){
+
+    }
+
+    private void loadPhotoFromCamera(){
 
     }
 }
