@@ -13,4 +13,6 @@ public interface ConstantManager {
     String USER_GIT_KEY = "USER_4_KEY";
     String USER_BIO_KEY = "USER_5_KEY";
     int LOAD_PROFILE_PHOTO = 1;
+    int REQUEST_CAMERA_PICTURE = 99;
+    int REQUEST_GALLERY_PICTURE = 88;
 }

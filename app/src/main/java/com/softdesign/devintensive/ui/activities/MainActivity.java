@@ -3,6 +3,10 @@ package com.softdesign.devintensive.ui.activities;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,8 +29,13 @@ import android.widget.RelativeLayout;
 import com.softdesign.devintensive.R;
 import com.softdesign.devintensive.data.managers.DataManager;
 import com.softdesign.devintensive.utils.ConstantManager;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -46,6 +55,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private CollapsingToolbarLayout mCollapsingToolbar;
     private AppBarLayout.LayoutParams mAppBarParams = null;
     private AppBarLayout mAppBarLayout;
+    private ImageView mProfileImage;
+    private File mPhotoFile = null;
+    private Uri mSelectedImage = null;
+
 
 
     /**
@@ -83,6 +96,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserGit = (EditText) findViewById(R.id.github_et);
         mUserBio = (EditText) findViewById(R.id.bio_et);
         mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_layout);
+        mProfileImage = (ImageView) findViewById(R.id.user_photo_img);
 
 
         mUserInfoViews = new ArrayList<>();
@@ -137,8 +151,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case ConstantManager.REQUEST_GALLERY_PICTURE:
+                if(resultCode == RESULT_OK && data != null){
+                    mSelectedImage = data.getData();
+                    insertProfileImage(mSelectedImage);
+                }
+                break;
+            case ConstantManager.REQUEST_CAMERA_PICTURE:
+                if (resultCode == RESULT_OK && mPhotoFile != null){
+                    mSelectedImage = Uri.fromFile(mPhotoFile);
+
+                    insertProfileImage(mSelectedImage);
+                }
+
+        }
     }
+
+
 
     @Override
     protected void onResume() {
@@ -192,15 +222,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             case 0:
                                 //// TODO: 03.07.2016 Загрузить из галлереи
                                 showSnackbar("Загрузить из галлереи");
+                                loadPhotoFromGallery();
                                 break;
                             case 1:
                                 //// TODO: 03.07.2016 Загрузить с камеры
                                 showSnackbar("Загрузить с камеры");
+                                loadPhotoFromCamera();
 
                                 break;
                             case 2:
                                 //// TODO: 03.07.2016 Отмена
                                 showSnackbar("Отмена");
+                                dialog.cancel();
 
                                 break;
                         }
@@ -279,6 +312,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 userValue.setFocusableInTouchMode(true);
                 showProfilePlaceholder();
                 lockToolbar();
+                mCollapsingToolbar.setExpandedTitleColor(Color.TRANSPARENT);
             }
         }else{
             mFab.setImageResource(R.drawable.ic_create_black_24dp);
@@ -290,6 +324,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 saveUserInfoValue();
                 hideProfilePlaceholder();
                 unlockToolbar();
+                mCollapsingToolbar.setExpandedTitleColor(getResources().getColor(R.color.white));
+
 
 
             }
@@ -334,9 +370,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void loadPhotoFromGallery(){
 
+        Intent takeGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        takeGalleryIntent.setType("image/*");
+        startActivityForResult(Intent.createChooser(takeGalleryIntent, getString(R.string.user_profile_choise_message)), ConstantManager.REQUEST_GALLERY_PICTURE);
+
     }
 
     private void loadPhotoFromCamera(){
+
+
+        Intent takeCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        try {
+            mPhotoFile = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            //// TODO: 03.07.2016 Обработать ошибку
+        }
+
+        if (mPhotoFile !=null){
+            // TODO: 03.07.2016 Передать фотографию в интент
+            takeCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
+            startActivityForResult(takeCaptureIntent, ConstantManager.REQUEST_CAMERA_PICTURE);
+        }
 
     }
 
@@ -362,5 +418,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mAppBarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
         mCollapsingToolbar.setLayoutParams(mAppBarParams);
+    }
+
+    private File createImageFile()throws IOException{
+        String timeStamp = new SimpleDateFormat("yyyyMMdddd HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        return image;
+    }
+
+    private void insertProfileImage(Uri selectedImage) {
+
+        Picasso.with(this)
+                .load(selectedImage)
+                .into(mProfileImage);
+
+
+
+
     }
 }
