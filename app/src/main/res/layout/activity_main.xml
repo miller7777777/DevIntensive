@@ -41,18 +41,43 @@
                         android:layout_height="@dimen/profile_image_size"
                         android:scaleType="centerCrop"
                         android:src="@drawable/userphoto"
-                        android:fitsSystemWindows="true"/>
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/profile_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/grey_background"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_profile.placeholder.image"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_centerHorizontal="true"
+                            android:layout_above="@+id/photo_placeholder"
+                            android:layout_marginBottom="@dimen/spacing_small_8"/>
+
+                        <ImageView
+
+                            android:id="@id/photo_placeholder"
+                            android:layout_width="@dimen/placeholder_photo_size_90"
+                            android:layout_height="@dimen/placeholder_photo_size_90"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/add_a_photo_48px"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/spacing_large_56"/>
+
+
+                    </RelativeLayout>
 
 
                 </FrameLayout>
 
-                <ImageView
-                    android:id="@+id/user_photo_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_image_size"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/userphoto"
-                    android:fitsSystemWindows="true"/>
+
 
 
 
