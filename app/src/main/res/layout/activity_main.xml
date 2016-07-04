@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay"
-            android:background="@color/color_primary">
+            android:background="@color/color_primary"
+            android:backgroundTint="@color/color_primary">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
@@ -33,7 +34,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_image_size">
+                    android:layout_height="@dimen/profile_image_size"
+                    android:fitsSystemWindows="true">
 
                     <ImageView
                         android:id="@+id/user_photo_img"
@@ -86,15 +88,11 @@
                 android:theme="@style/AppTheme.PopupOverlay"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-
                 android:background="@android:color/transparent"
-
-
-
-
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:layout_collapseMode="pin"
                 android:titleTextColor="@color/white"
+                app:theme="@style/AppTheme.PopupOverlay"
                 />
 
             </android.support.design.widget.CollapsingToolbarLayout>
