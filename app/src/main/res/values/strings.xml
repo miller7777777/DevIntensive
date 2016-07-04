@@ -4,4 +4,10 @@
     <string name="my_vk_profile">http://vk.com/id4306032</string>
     <string name="my_repository">https://github.com/miller7777777/DevIntensive/</string>
     <string name="personal_info">Здесь должна быть какая-то персональная информация. Лень писать. Что-то типа.</string>
+    <string name="user_profile.placeholder.image">Изменить фотографию профиля</string>
+    <string name="user_profile.dialog.gallery">Загрузить из галлереи</string>
+    <string name="user_profile.dialog.camera">Сделать фото</string>
+    <string name="user_profile.dialog.cancel">Отмена</string>
+    <string name="user_profile.dialog.title">Изменить фотографию профиля</string>
+    <string name="user_profile.choise.message">Выберите фото</string>
 </resources>
