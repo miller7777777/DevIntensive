@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private DataManager mDataManager;
     private int mCurrentEditMode;
-    private ImageView mCallImg;
+    private ImageView mCallImg, mSendMail, mShowVK, mShowGit;
     private CoordinatorLayout mCoordinatorLayout;
     private Toolbar mToolbar;
     private DrawerLayout mNavigationDrawer;
@@ -89,10 +89,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mDataManager = DataManager.getInstance();
 
         mCallImg = (ImageView) findViewById(R.id.call_img);
+        mSendMail = (ImageView) findViewById(R.id.email_img);
+        mShowVK = (ImageView) findViewById(R.id.vk_img);
+        mShowGit = (ImageView) findViewById(R.id.git_img);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_container);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.navigation_drawer);
         mCallImg.setOnClickListener(this);
+        mSendMail.setOnClickListener(this);
+        mShowVK.setOnClickListener(this);
+        mShowGit.setOnClickListener(this);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mProfilePlaceholder = (RelativeLayout) findViewById(R.id.profile_placeholder);
         mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -257,6 +263,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        String url;
+        Intent i;
+
         switch (v.getId()) {
             case R.id.fab:
                 if (mCurrentEditMode == 0) {
@@ -273,8 +282,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 showDialog(ConstantManager.LOAD_PROFILE_PHOTO);
                 break;
             case R.id.call_img:
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mUserPhone.getText()));
-                startActivity(intent);
+                i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mUserPhone.getText()));
+                startActivity(i);
+                break;
+            case R.id.email_img:
+
+//                showSnackbar("E-mail");
+                url = mUserMail.getText().toString();
+                i = new Intent(Intent.ACTION_SEND);
+                i.setType("plain/text");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[] { url });
+//                i.putExtra(Intent.EXTRA_SUBJECT, "subject");
+//                i.putExtra(Intent.EXTRA_TEXT, "mail body");
+                startActivity(Intent.createChooser(i, ""));
+//                startActivity(i);
+
+                break;
+            case R.id.vk_img:
+//                showSnackbar("VK");
+//                String url;
+                if (mUserVk.getText().toString().startsWith("http://")){
+                    url =mUserVk.getText().toString();
+                }else{
+                    url =  "http://" + mUserVk.getText().toString();
+                }
+                i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                break;
+            case R.id.git_img:
+//                showSnackbar("GIT");
+//                String url;
+                if (mUserGit.getText().toString().startsWith("https://")){
+                    url =mUserGit.getText().toString();
+                }else{
+                    url =  "https://" + mUserGit.getText().toString();
+                }
+                i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
         }
 
