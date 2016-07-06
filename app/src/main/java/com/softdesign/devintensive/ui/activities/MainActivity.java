@@ -272,6 +272,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 ////// TODO: 03.07.2016 сделать выбор, откуда загружать фото;
                 showDialog(ConstantManager.LOAD_PROFILE_PHOTO);
                 break;
+            case R.id.call_img:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mUserPhone.getText()));
+                startActivity(intent);
+                break;
         }
 
     }
