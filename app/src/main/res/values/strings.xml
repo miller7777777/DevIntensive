@@ -29,4 +29,6 @@
     <string name="about_person">О себе</string>
     <string name="password">Password</string>
     <string name="forgot_password">Забыли пароль?</string>
+    <string name="escape">Отмена</string>
+    <string name="permission_granted">Разрешение получено</string>
 </resources>

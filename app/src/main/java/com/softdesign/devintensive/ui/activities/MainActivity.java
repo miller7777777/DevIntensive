@@ -246,7 +246,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 break;
                             case 2:
                                 //// TODO: 03.07.2016 Отмена
-                                showSnackbar("Отмена");
+                                showSnackbar(getString(R.string.escape));
                                 dialog.cancel();
 
                                 break;
@@ -478,6 +478,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //// TODO: 06.07.2016 тут обрабатываем разрешение (разрешение получено)
                 // например, вывести сообщение или обработать какой-то логикой, если нужно
+                showToast(getString(R.string.permission_granted));
             }
 
         }
@@ -485,6 +486,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
             // TODO: 06.07.2016 тут обрабатываем разрешение (разрешение получено)
             // например, вывести сообщение или обработать какой-то логикой, если нужно
+            showToast(getString(R.string.permission_granted));
+
 
         }
 
