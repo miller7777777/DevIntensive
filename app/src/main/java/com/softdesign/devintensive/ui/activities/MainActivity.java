@@ -446,6 +446,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             } catch (IOException e) {
                 e.printStackTrace();
                 //// TODO: 03.07.2016 Обработать ошибку
+                showToast(getString(R.string.error_file_create));
             }
 
             if (mPhotoFile != null) {
@@ -459,8 +460,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
             }, ConstantManager.CAMERA_REQUEST_PERMISSION_CODE);
 
-            Snackbar.make(mCoordinatorLayout, "Для корректной работы приложения необходимо дать требуемые разрешения", Snackbar.LENGTH_LONG)
-                    .setAction("Разрешить", new View.OnClickListener() {
+            Snackbar.make(mCoordinatorLayout, R.string.error_msg_need_permission, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.allove, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             openApplicationSettings();

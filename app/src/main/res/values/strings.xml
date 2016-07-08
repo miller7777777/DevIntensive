@@ -10,4 +10,23 @@
     <string name="user_profile.dialog.cancel">Отмена</string>
     <string name="user_profile.dialog.title">Изменить фотографию профиля</string>
     <string name="user_profile.choise.message">Выберите фото</string>
+    <string name="error_file_create">Ошибка при создании файла</string>
+    <string name="error_msg_need_permission">Для корректной работы приложения необходимо дать требуемые разрешения</string>
+    <string name="allove">Разрешить</string>
+    <string name="enter">Войти</string>
+    <string name="user_name">Рябинин Игорь</string>
+    <string name="rating">Рейтинг</string>
+    <string name="rating_value">5</string>
+    <string name="code_lines">Написано строк кода</string>
+    <string name="code_lines_value">555</string>
+    <string name="projects">Проектов</string>
+    <string name="projects_value">1</string>
+    <string name="mobile_phone">Мобильный телефон</string>
+    <string name="miller777_mobile_phone">89213393817</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="vk_profile">Профиль в VK</string>
+    <string name="repository">Репозиторий</string>
+    <string name="about_person">О себе</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Забыли пароль?</string>
 </resources>

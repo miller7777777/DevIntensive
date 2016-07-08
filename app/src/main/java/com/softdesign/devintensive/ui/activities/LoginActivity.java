@@ -21,7 +21,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         mLoginButton = (Button) findViewById(R.id.login_button);
 
-        mLoginButton.setOnClickListener(this);
+        if (mLoginButton != null) {
+            mLoginButton.setOnClickListener(this);
+        }
 
     }
 

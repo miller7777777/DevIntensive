@@ -28,7 +28,7 @@
             android:id="@+id/uer_name_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Рябинин Игорь"
+            android:text="@string/user_name"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:fontFamily="sans-serif-medium"/>
@@ -37,7 +37,7 @@
             android:id="@+id/uer_email_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="miller777@mail.ru"
+            android:text="@string/miller777_mail_ru"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:fontFamily="sans-serif"/>
