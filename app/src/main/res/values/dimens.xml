@@ -29,6 +29,9 @@
     <dimen name="profile_image_size">256dp</dimen>
     <dimen name="fab_right_space">8dp</dimen>
     <dimen name="placeholder_photo_size_90">90dp</dimen>
+    <dimen name="spacing_navbar_172">172dp</dimen>
+    <dimen name="height_width_avatar">60dp</dimen>
+    <dimen name="size_text_navbar">14sp</dimen>
 
 
 </resources>

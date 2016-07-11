@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
+
+
     <style name="icon">
 
         <item name="android:layout_width">@dimen/size_small_24</item>

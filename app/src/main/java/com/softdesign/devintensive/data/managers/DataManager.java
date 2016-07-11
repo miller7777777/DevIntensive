@@ -11,9 +11,9 @@ public class DataManager {
         this.mPreferencesManager = new PreferencesManager();
     }
 
-    public static DataManager getInstance(){
+    public static DataManager getInstance() {
 
-        if (INSTANCE == null){
+        if (INSTANCE == null) {
             INSTANCE = new DataManager();
         }
 
