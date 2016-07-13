@@ -33,5 +33,10 @@
     <dimen name="height_width_avatar">60dp</dimen>
     <dimen name="size_text_navbar">14sp</dimen>
 
+    <!--fonts-->
+
+    <dimen name="font_medium_20">20sp</dimen>
+    <dimen name="font_small_14">14sp</dimen>
+
 
 </resources>
