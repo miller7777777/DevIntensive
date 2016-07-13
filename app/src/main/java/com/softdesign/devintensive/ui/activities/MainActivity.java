@@ -6,7 +6,9 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
 import android.graphics.Color;
+
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -32,11 +34,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.softdesign.devintensive.R;
 import com.softdesign.devintensive.data.managers.DataManager;
 import com.softdesign.devintensive.utils.ConstantManager;
 import com.squareup.picasso.Picasso;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +64,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private List<EditText> mUserInfoViews;
     private RelativeLayout mProfilePlaceholder;
     private CollapsingToolbarLayout mCollapsingToolbar;
+    private TextView mUserValueRating, mUserValueCodeLines, mUservalueProjects;
+    private List<TextView> mUserValueViews;
     private AppBarLayout.LayoutParams mAppBarParams = null;
     private AppBarLayout mAppBarLayout;
     private ImageView mProfileImage;
@@ -70,12 +76,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     /**
      * Метод вызывается при создании активити (после изменения конфигурации/возврата к
      * текущей активности после ее уничтожения.
-     * <p/>
+     * <p>
      * В данном месте инициализируется/производится:
      * - UI пользовательский интерфейс (статика)
      * - инициализация статических данных активити
      * - связь данных со списками (инициализация адаптеров)
-     * <p/>
+     * <p>
      * Не запускать длительные операции по работе с данными в onCreate()!
      *
      * @param savedInstanceState - объект со значением, сохраненным в Bundle - состояние UI
@@ -110,6 +116,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_layout);
         mProfileImage = (ImageView) findViewById(R.id.user_photo_img);
 
+        mUserValueRating = (TextView) findViewById(R.id.rating);
+        mUserValueCodeLines = (TextView) findViewById(R.id.codeLines);
+        mUservalueProjects = (TextView) findViewById(R.id.number_of_projects);
+
 
         mUserInfoViews = new ArrayList<>();
         mUserInfoViews.add(mUserPhone);
@@ -117,11 +127,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserInfoViews.add(mUserVk);
         mUserInfoViews.add(mUserGit);
         mUserInfoViews.add(mUserBio);
+
+        mUserValueViews = new ArrayList<>();
+        mUserValueViews.add(mUserValueRating);
+        mUserValueViews.add(mUserValueCodeLines);
+        mUserValueViews.add(mUservalueProjects);
+
+
         mFab.setOnClickListener(this);
         mProfilePlaceholder.setOnClickListener(this);
         setupToolbar();
         setupDrawer();
-        loadUserInfoValue();
+        initUserFields();
+        initUserInfoValue();
 
         Picasso.with(this)
                 .load(mDataManager.getPreferencesManager().loadUserPhoto())
@@ -195,7 +213,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "OnPause");
-//        saveUserInfoValue();
+//        saveUserFields();
 
     }
 
@@ -291,7 +309,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 url = mUserMail.getText().toString();
                 i = new Intent(Intent.ACTION_SEND);
                 i.setType("plain/text");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[] { url });
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{url});
 //                i.putExtra(Intent.EXTRA_SUBJECT, "subject");
 //                i.putExtra(Intent.EXTRA_TEXT, "mail body");
                 startActivity(Intent.createChooser(i, ""));
@@ -301,10 +319,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.vk_img:
 //                showSnackbar("VK");
 //                String url;
-                if (mUserVk.getText().toString().startsWith("http://")){
-                    url =mUserVk.getText().toString();
-                }else{
-                    url =  "http://" + mUserVk.getText().toString();
+                if (mUserVk.getText().toString().startsWith("http://")) {
+                    url = mUserVk.getText().toString();
+                } else {
+                    url = "http://" + mUserVk.getText().toString();
                 }
                 i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -313,10 +331,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.git_img:
 //                showSnackbar("GIT");
 //                String url;
-                if (mUserGit.getText().toString().startsWith("https://")){
-                    url =mUserGit.getText().toString();
-                }else{
-                    url =  "https://" + mUserGit.getText().toString();
+                if (mUserGit.getText().toString().startsWith("https://")) {
+                    url = mUserGit.getText().toString();
+                } else {
+                    url = "https://" + mUserGit.getText().toString();
                 }
                 i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -379,7 +397,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 userValue.setEnabled(false);
                 userValue.setFocusable(false);
                 userValue.setFocusableInTouchMode(false);
-                saveUserInfoValue();
+                saveUserFields();
                 hideProfilePlaceholder();
                 unlockToolbar();
                 mCollapsingToolbar.setExpandedTitleColor(getResources().getColor(R.color.white));
@@ -390,7 +408,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    private void loadUserInfoValue() {
+    private void initUserInfoValue() {
+        List<String> userData = mDataManager.getPreferencesManager().loadUserProfileValues();
+        for (int i = 0; i < userData.size(); i++) {
+            mUserValueViews.get(i).setText(userData.get(i));
+        }
+    }
+
+    private void saveUserInfoValue() {
+    }
+
+    private void initUserFields() {
 
         List<String> userData = mDataManager.getPreferencesManager().loadUserProfileData();
 
@@ -400,7 +428,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    private void saveUserInfoValue() {
+    private void saveUserFields() {
 
         List<String> userData = new ArrayList<>();
         for (EditText userFieldView : mUserInfoViews) {
@@ -408,6 +436,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         mDataManager.getPreferencesManager().saveUserProfileData(userData);
+
 
     }
 
@@ -549,4 +578,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         startActivityForResult(appSettingsIntent, ConstantManager.PERMISSION_REQUEST_SETTINGS_CODE);
 
     }
+
+
 }

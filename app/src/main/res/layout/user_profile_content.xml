@@ -43,6 +43,7 @@
                 />
 
             <EditText
+                android:id="@+id/codeLines"
                 style="@style/field_for_rating"
                 android:text="@string/code_lines_value"
                 />
