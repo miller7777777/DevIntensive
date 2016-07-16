@@ -38,4 +38,9 @@
     <string name="auth.password">Введите пароль</string>
     <string name="auth.login">Войти</string>
     <string name="auth.remember">Забыли пароль?</string>
+
+    <!-- Font family -->
+    <string name="ff_regular">sans-serif</string>
+    <string name="ff_medium">sans-serif-medium</string>
+    <string name="profile.bio.dummy">Some personal information.</string>
 </resources>
