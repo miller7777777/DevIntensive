@@ -43,4 +43,16 @@
     <string name="ff_regular">sans-serif</string>
     <string name="ff_medium">sans-serif-medium</string>
     <string name="profile.bio.dummy">Some personal information.</string>
+
+    <!--Dummies-->
+    <string name="dummy.app_name">Miller777 Devintensive</string>
+    <string name="dummy.profile_phone">89213393817</string>
+    <string name="dummy.profile_email">miller777@mail.ru</string>
+    <string name="dummy.profile_vk">http://vk.com/id4306032</string>
+    <string name="dummy.profile_gitHubRepo">https://github.com/miller7777777/DevIntensive</string>
+    <string name="dummy.profile_about">Some personal information.
+    </string>
+
+
+
 </resources>

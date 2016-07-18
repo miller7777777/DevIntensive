@@ -37,7 +37,7 @@
                 android:titleTextColor="@color/white"
                 app:theme="@style/ToolBarStyle"/>
 
-            <include layout="@layout/user_list_content"/>
+            <include layout="@layout/item_user_list"/>
 
 
         </android.support.design.widget.AppBarLayout>
